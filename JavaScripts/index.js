@@ -1,5 +1,5 @@
 /** Global Variables **/
-
+const form = () => document.createElement('form');
 
 /** Nodes **/
 const mainDiv = () => document.getElementById('main');
@@ -19,9 +19,9 @@ function searchByNameLinkEvent(){
 function searchByIngredientLinkEvent(){
     searchByIngredientLink().addEventListener('click', renderSearchByIngredient)
 }
-// function surpriseMeLinkEvent(){
-//     surpriseMeLink().addEventListener('click', fetchSurpriseCocktail())
-// }
+function surpriseMeLinkEvent(){
+    surpriseMeLink().addEventListener('click', renderSurpriseMe)
+}
 
 /** Event Handlers **/
 function renderHomePage(){
@@ -34,15 +34,24 @@ function renderHomePage(){
 }
 
 function renderSearchByName(){
-    
     resetMainDiv();
     const h1 = document.createElement('h1');
+    const div1 = document.createElement('div');
+    const div2 = document.createElement('div');
+    const input = document.createElement('input');
+    h1.className = 'center-align';
+    div1.className = 'row container';
+    div2.className = 'input-field';
+    input.className = 'validate';
+    input.id = "cocktail-name";
+    input.type = "text";
     h1.innerText = 'Search Cocktail Recipe by Name';
     mainDiv().appendChild(h1);
+    mainDiv().appendChild(form()).appendChild(div1).appendChild(div2).appendChild(input);
 }
 
+
 function renderSearchByIngredient(){
-    
     resetMainDiv();
     const h1 = document.createElement('h1');
     h1.innerText = 'Search Cocktail Recipe by Ingredients'
@@ -67,16 +76,16 @@ function renderSurpriseMe(){
 /** Helper **/
 function resetMainDiv(){
     mainDiv().innerHTML= ""
-//instead of adding, this will reset the page
+//reset the page to prevent adding on
 }
 
 
-/** Startup **/
+/** DOMContentLoaded **/
 
 document.addEventListener('DOMContentLoaded', () => {
     renderHomePage();
     homePageLinkEvent();
     searchByNameLinkEvent();
     searchByIngredientLinkEvent();
-    //surpriseMeLinkEvent();
+    surpriseMeLinkEvent();
 })
