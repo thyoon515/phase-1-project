@@ -1,12 +1,13 @@
 /** Global Variables **/
 const form = () => document.createElement('form');
+let drinks = [];
 
 /** Nodes **/
 const mainDiv = () => document.getElementById('main');
 const homeLink = () => document.getElementById('home-link');
 const searchByNameLink = () => document.getElementById('search-by-name-link');
 const searchByIngredientLink = () => document.getElementById('search-by-ingredient-link');
-const surpriseMeLink = () => document.getElementById('surprise-me');
+const surpriseMeLink = () => document.getElementById('surprise-me-link');
 
 /** Event Listeners **/
 //3 question rules: When? Cause? Effect?
@@ -20,7 +21,7 @@ function searchByIngredientLinkEvent(){
     searchByIngredientLink().addEventListener('click', renderSearchByIngredient)
 }
 function surpriseMeLinkEvent(){
-    surpriseMeLink().addEventListener('click', renderSurpriseMe)
+    surpriseMeLink().addEventListener('click', fetchSurpriseMe)
 }
 
 /** Event Handlers **/
@@ -29,7 +30,7 @@ function renderHomePage(){
     //reset the page everytime it renders
     const h1 = document.createElement('h1');
     h1.className = 'center-align';
-    h1.innerText = "Welcome to Automated Cocktail Bar";
+    h1.innerText = "Welcome to Find Cocktail Recipe";
     mainDiv().appendChild(h1);
 }
 
@@ -58,18 +59,23 @@ function renderSearchByIngredient(){
     mainDiv().appendChild(h1);
 }
 
-function renderSurpriseMe(){
+function renderSurpriseMe(drinks){
     resetMainDiv();
     const h1 = document.createElement('h1');
-    h1.innerText = 'SURPRISE!!'
+    const div = document.createElement('div');
+    h1.innerText = 'SURPRISE!!';
+    div.innerHTML = drinks;
     mainDiv().appendChild(h1);
+    mainDiv().appendChild(div);
 }
 
-// function fetchSurpriseCocktail(){
-//     fetch("http://www.thecocktaildb.com/api/json/v1/1/random.php")
-//         .then(resp => resp.json())
-//         .then(console.log(data));
-//         }
+function fetchSurpriseMe(){
+    fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
+    .then(resp => resp.json())
+    .then(data => {
+        renderSurpriseMe(data)
+    })
+}
 
 
 
