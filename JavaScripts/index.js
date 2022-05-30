@@ -1,6 +1,5 @@
 /** Global Variables **/
 const form = () => document.createElement('form');
-let drinks = [];
 
 /** Nodes **/
 const mainDiv = () => document.getElementById('main');
@@ -62,15 +61,41 @@ function renderSearchByIngredient(){
     mainDiv().appendChild(h1);
 }
 
-function renderSurpriseMe(drinks){
+function renderSurpriseMe(cocktail){
     resetMainDiv();
     const h1 = document.createElement('h1');
-    const div = document.createElement('div');
+    const divCard = document.createElement('div');
+    const divCardImg = document.createElement('div');
+    const image = document.createElement('img');
+    const span = document.createElement('span');
+    divCardImg.className = 'card-image';
+    divCard.className = 'card';
+    span.className = 'card-title';
     h1.innerText = 'SURPRISE!!';
-    div.innerHTML = drinks;
+    span.innerText = cocktail.drinks[0].strDrink;
+    image.src = cocktail.drinks[0].strDrinkThumb;
     mainDiv().appendChild(h1);
-    mainDiv().appendChild(div);
+    h1.appendChild(divCard);
+    divCard.appendChild(divCardImg);
+    divCardImg.appendChild(image);
+    divCardImg.appendChild(span);
+    
+//     <div class="card">
+
+//     <div class="card-image">
+//       <img src="https://www.thecocktaildb.com/images/media/drink/sih81u1504367097.jpg">
+//       <span class="card-title">Tia-Maria</span>
+//     </div>
+//     <div class="card-content">
+//       <p>I am a very simple card. I am good at containing small bits of information.
+//       I am convenient because I require little markup to use effectively.</p>
+//     </div>
+//     <div class="card-action">
+//       <a href="#">Add to my favorite</a>
+//     </div>
+// </div>
 }
+
 
 function fetchSurpriseMe(){
     fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
