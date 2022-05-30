@@ -40,15 +40,18 @@ function renderSearchByName(){
     const div1 = document.createElement('div');
     const div2 = document.createElement('div');
     const input = document.createElement('input');
+    const label = document.createElement('label');
     h1.className = 'center-align';
     div1.className = 'row container';
     div2.className = 'input-field';
     input.className = 'validate';
     input.id = "cocktail-name";
-    input.type = "text";
+    input.setAttribute('type', 'text');
+    label.setAttribute('for', 'Cocktail-Name');
     h1.innerText = 'Search Cocktail Recipe by Name';
+    label.innerText = 'Cocktail Name'
     mainDiv().appendChild(h1);
-    mainDiv().appendChild(form()).appendChild(div1).appendChild(div2).appendChild(input);
+    mainDiv().appendChild(form()).appendChild(div1).appendChild(div2).appendChild(input).appendChild(label);
 }
 
 
