@@ -1,5 +1,4 @@
 /** Global Variables **/
-//const form = () => document.createElement('form');
 
 /** Nodes **/
 const mainDiv = () => document.getElementById('main');
@@ -51,11 +50,68 @@ function renderSearchByName(){
     div2.className = 'input-field col s6';
     input.className = 'validate';
     btn.className = 'waves-effect waves-light btn'
+    form.id = 'form';
     input.id = "cocktail-name";
+    btn.id = "search-by-name-submit";
     input.setAttribute('type', 'text');
     label.setAttribute('for', 'Cocktail_Name');
     h1.innerText = 'Search Cocktail Recipe by Name';
-    label.innerText = 'Cocktail Name';
+    label.innerText = 'Name';
+    btn.innerText = 'search';
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${e.target[0].value}`)
+            .then(resp => resp.json())
+            .then(data => {
+                for(let i=1; i<16; i++){
+                    //iterate through each ingredients and measurements
+                    if(data.drinks[0][`strIngredient${i}`] == null){
+                        break;
+                    }
+                    const h2 = document.createElement('h2');
+                    //const ul = document.createElement('ul');
+                    let li = document.createElement('li');
+                    h2.innerText = data.drinks[0].strDrink;
+                    li.innerHTML = data.drinks[0][`strIngredient${i}`] + ': ' + data.drinks[0][`strMeasure${i}`]
+                    mainDiv().appendChild(h2);
+                    h2.appendChild(li);
+                    //ul.appendChild(li);
+                }
+            })
+            resetMainDiv();
+            e.target[0].value = ""
+    })
+
+    mainDiv().appendChild(h1);
+    mainDiv().appendChild(form)
+    form.appendChild(div1);
+    div1.appendChild(div2);
+    div2.appendChild(input);
+    div2.appendChild(label);
+    div2.appendChild(btn);
+}
+
+function renderSearchByIngredient(){
+    resetMainDiv();
+    const h1 = document.createElement('h1');
+    const form = document.createElement('form');
+    const div1 = document.createElement('div');
+    const div2 = document.createElement('div');
+    const input = document.createElement('input');
+    const label = document.createElement('label');
+    const btn = document.createElement('button');
+    h1.className = 'center-align';
+    form.className = 'col s12';
+    div1.className = 'row container';
+    div2.className = 'input-field col s6';
+    input.className = 'validate';
+    btn.className = 'waves-effect waves-light btn'
+    input.id = "cocktail-ingredients";
+    input.setAttribute('type', 'text');
+    label.setAttribute('for', 'Cocktail_ingredients');
+    h1.innerText = 'Search Cocktail Recipe by Ingredients'
+    label.innerText = 'Ingredient';
     btn.innerText = 'search';
     mainDiv().appendChild(h1);
     mainDiv().appendChild(form)
@@ -64,17 +120,6 @@ function renderSearchByName(){
     div2.appendChild(input);
     div2.appendChild(label);
     div2.appendChild(btn);
-
-}
-
-
-
-
-function renderSearchByIngredient(){
-    resetMainDiv();
-    const h1 = document.createElement('h1');
-    h1.innerText = 'Search Cocktail Recipe by Ingredients'
-    mainDiv().appendChild(h1);
 }
 
 function renderSurpriseMe(cocktail){
@@ -114,11 +159,8 @@ function renderSurpriseMe(cocktail){
 function fetchSurpriseMe(){
     fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
     .then(resp => resp.json())
-    .then(data => {
-        renderSurpriseMe(data)
-    })
+    .then(data => renderSurpriseMe(data))
 }
-
 
 /** Helper **/
 function resetMainDiv(){
