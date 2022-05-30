@@ -64,38 +64,36 @@ function renderSearchByIngredient(){
 function renderSurpriseMe(cocktail){
     resetMainDiv();
     const h1 = document.createElement('h1');
-    const divCard = document.createElement('div');
-    const divCardImg = document.createElement('div');
-    const image = document.createElement('img');
-    const span = document.createElement('span');
-    divCardImg.className = 'card-image';
-    divCard.className = 'card';
-    span.className = 'card-title';
-    h1.innerText = 'SURPRISE!!';
-    span.innerText = cocktail.drinks[0].strDrink;
-    image.src = cocktail.drinks[0].strDrinkThumb;
-    mainDiv().appendChild(h1);
-    h1.appendChild(divCard);
-    divCard.appendChild(divCardImg);
-    divCardImg.appendChild(image);
-    divCardImg.appendChild(span);
+    const div = document.createElement('div');
+    const image = document.createElement('img'); 
+    const h2 = document.createElement('h2');
+    const ul = document.createElement('ul');
+    const p = document.createElement('p');
     
-//     <div class="card">
+    h1.innerText = 'SURPRISE!!';
+    image.src = cocktail.drinks[0].strDrinkThumb;
+    h2.innerText = cocktail.drinks[0].strDrink;
+    ul.className = 'card';
+    p.className = 'card';
+    
+    for(let i=1; i<16; i++){
+        //iterate through each ingredients and measurements
+        if(cocktail.drinks[0][`strIngredient${i}`] == null){
+            break;
+        }
+        let li = document.createElement('li');
+        li.innerHTML = cocktail.drinks[0][`strIngredient${i}`] + ': ' + cocktail.drinks[0][`strMeasure${i}`]
+        ul.appendChild(li);
+    }
 
-//     <div class="card-image">
-//       <img src="https://www.thecocktaildb.com/images/media/drink/sih81u1504367097.jpg">
-//       <span class="card-title">Tia-Maria</span>
-//     </div>
-//     <div class="card-content">
-//       <p>I am a very simple card. I am good at containing small bits of information.
-//       I am convenient because I require little markup to use effectively.</p>
-//     </div>
-//     <div class="card-action">
-//       <a href="#">Add to my favorite</a>
-//     </div>
-// </div>
+    p.innerText = cocktail.drinks[0].strInstructions
+
+    mainDiv().appendChild(h1);
+    h1.appendChild(div);
+    div.append(image, h2);
+    h2.appendChild(ul);
+    div.append(p)    
 }
-
 
 function fetchSurpriseMe(){
     fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
@@ -104,7 +102,6 @@ function fetchSurpriseMe(){
         renderSurpriseMe(data)
     })
 }
-
 
 
 /** Helper **/
