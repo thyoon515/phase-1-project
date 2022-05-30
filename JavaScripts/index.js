@@ -1,5 +1,5 @@
 /** Global Variables **/
-const form = () => document.createElement('form');
+//const form = () => document.createElement('form');
 
 /** Nodes **/
 const mainDiv = () => document.getElementById('main');
@@ -39,22 +39,35 @@ function renderHomePage(){
 function renderSearchByName(){
     resetMainDiv();
     const h1 = document.createElement('h1');
+    const form = document.createElement('form');
     const div1 = document.createElement('div');
     const div2 = document.createElement('div');
     const input = document.createElement('input');
     const label = document.createElement('label');
+    const btn = document.createElement('button');
     h1.className = 'center-align';
+    form.className = 'col s12';
     div1.className = 'row container';
-    div2.className = 'input-field';
+    div2.className = 'input-field col s6';
     input.className = 'validate';
+    btn.className = 'waves-effect waves-light btn'
     input.id = "cocktail-name";
     input.setAttribute('type', 'text');
-    label.setAttribute('for', 'Cocktail-Name');
+    label.setAttribute('for', 'Cocktail_Name');
     h1.innerText = 'Search Cocktail Recipe by Name';
-    label.innerText = 'Cocktail Name'
+    label.innerText = 'Cocktail Name';
+    btn.innerText = 'search';
     mainDiv().appendChild(h1);
-    mainDiv().appendChild(form()).appendChild(div1).appendChild(div2).appendChild(input).appendChild(label);
+    mainDiv().appendChild(form)
+    form.appendChild(div1);
+    div1.appendChild(div2);
+    div2.appendChild(input);
+    div2.appendChild(label);
+    div2.appendChild(btn);
+
 }
+
+
 
 
 function renderSearchByIngredient(){
