@@ -28,9 +28,12 @@ function renderHomePage(){
     resetMainDiv();
     //reset the page everytime it renders
     const h1 = document.createElement('h1');
+    const img = document.createElement('img');
     h1.className = 'center-align';
     h1.innerText = "Welcome to Find Cocktail Recipe";
+    img.src = 'https://customneon.com/media/catalog/product/cache/1d858328874ebd6a1883e32a918ffc61/c/o/cocktail-glass-turnedon-customneon.jpg'
     mainDiv().appendChild(h1);
+    h1.appendChild(img);
 }
 
 function renderSearchByName(){
