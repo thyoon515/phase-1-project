@@ -71,7 +71,6 @@ function renderSearchByName(){
     })
 }
 
-
 function renderSurpriseMe(cocktail){
     resetMainDiv();
     const h1 = document.createElement('h1');
@@ -137,7 +136,7 @@ function fetchSearchByName(cocktail){
         h4.appendChild(ul);
         cardDiv.appendChild(h4Ins);
     })
-        .catch(error => alert('Result not found, try another name!'))
+        .catch(error => alert('Result not found, go back to Search By Name and try another name!'))
 }
                
 
