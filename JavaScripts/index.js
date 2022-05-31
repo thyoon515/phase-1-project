@@ -1,4 +1,3 @@
-/** Global Variables **/
 
 /** Nodes **/
 const mainDiv = () => document.getElementById('main');
@@ -19,14 +18,15 @@ function surpriseMeLinkEvent(){
 }
 
 /** Event Handlers **/
+
 function renderHomePage(){
-    resetMainDiv();
-    //reset the page everytime it renders
+    resetMainDiv(); //reset the page everytime it renders
     const h1 = document.createElement('h1');
     const img = document.createElement('img');
     h1.className = 'center-align';
     h1.innerText = "Welcome to Find Cocktail Recipe";
     img.src = 'https://customneon.com/media/catalog/product/cache/1d858328874ebd6a1883e32a918ffc61/c/o/cocktail-glass-turnedon-customneon.jpg'
+    img.setAttribute('style', 'margin-top: 100px')
     mainDiv().appendChild(h1);
     h1.appendChild(img);
 }
@@ -46,39 +46,16 @@ function renderSearchByName(){
     div2.className = 'input-field col s6';
     input.className = 'validate';
     btn.className = 'waves-effect waves-light btn'
-    form.id = 'form';
-    input.id = "cocktail-name";
+    form.id = 'search-by-name-form';
+    input.id = "text-input";
     btn.id = "search-by-name-submit";
     input.setAttribute('type', 'text');
     label.setAttribute('for', 'Cocktail_Name');
+    form.setAttribute('action', '#');
+    form.setAttribute('method', 'POST');
     h1.innerText = 'Search Cocktail Recipe by Name';
-    label.innerText = 'Name';
+    label.innerText = 'Cocktail Name';
     btn.innerText = 'search';
-    
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${e.target[0].value}`)
-            .then(resp => resp.json())
-            .then(data => {
-                for(let i=1; i<16; i++){
-                    //iterate through each ingredients and measurements
-                    if(data.drinks[0][`strIngredient${i}`] == null){
-                        break;
-                    }
-                    const h2 = document.createElement('h2');
-                    //const ul = document.createElement('ul');
-                    let li = document.createElement('li');
-                    h2.innerText = data.drinks[0].strDrink;
-                    li.innerHTML = data.drinks[0][`strIngredient${i}`] + ': ' + data.drinks[0][`strMeasure${i}`]
-                    mainDiv().appendChild(h2);
-                    h2.appendChild(li);
-                    //ul.appendChild(li);
-                }
-            })
-            resetMainDiv();
-            e.target[0].value = ""
-    })
-
     mainDiv().appendChild(h1);
     mainDiv().appendChild(form)
     form.appendChild(div1);
@@ -86,22 +63,28 @@ function renderSearchByName(){
     div2.appendChild(input);
     div2.appendChild(label);
     div2.appendChild(btn);
+    
+    form.addEventListener('submit', (e) =>{
+        e.preventDefault();
+        fetchSearchByName(e.target[0].value); //pass in input value to search the API
+        form.reset();
+    })
 }
+
 
 function renderSurpriseMe(cocktail){
     resetMainDiv();
     const h1 = document.createElement('h1');
     const div = document.createElement('div');
-    const image = document.createElement('img'); 
-    const h3 = document.createElement('h3');
+    const img = document.createElement('img'); 
+    const h4Recipe = document.createElement('h4');
+    const h4Instruction = document.createElement('h4');
     const ul = document.createElement('ul');
-    const h4 = document.createElement('h4');
-    
+    div.className = 'card';
     h1.innerText = 'SURPRISE!!';
-    image.src = cocktail.drinks[0].strDrinkThumb;
-    h3.innerText = cocktail.drinks[0].strDrink;
-    ul.className = 'card';
-    h4.className = 'card';
+    h4Recipe.innerText = cocktail.drinks[0].strDrink;
+    h4Instruction.innerText = cocktail.drinks[0].strInstructions
+    img.src = cocktail.drinks[0].strDrinkThumb;
     
     for(let i=1; i<16; i++){
         //iterate through each ingredients and measurements
@@ -112,12 +95,9 @@ function renderSurpriseMe(cocktail){
         li.innerHTML = cocktail.drinks[0][`strIngredient${i}`] + ': ' + cocktail.drinks[0][`strMeasure${i}`]
         ul.appendChild(li);
     }
-
-    h4.innerText = cocktail.drinks[0].strInstructions
-
     mainDiv().append(h1, div);
-    div.append(image, h3, h4);
-    h3.append(ul);  
+    div.append(img, h4Recipe, h4Instruction);
+    h4Recipe.append(ul);  
 }
 
 function fetchSurpriseMe(){
@@ -126,7 +106,43 @@ function fetchSurpriseMe(){
     .then(data => renderSurpriseMe(data))
 }
 
+function fetchSearchByName(cocktail){
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${cocktail}`)
+        .then(resp => resp.json())
+        .then(data => {
+        resetMainDiv();
+        const cardDiv = document.createElement('div');
+        const img = document.createElement('img');
+        const h3 = document.createElement('h3');
+        const h4Ins = document.createElement('h4');
+        const h4 = document.createElement('h4');
+        const ul = document.createElement('ul');
+        cardDiv.className = 'card';
+        img.src = data.drinks[0].strDrinkThumb;
+        h3.innerText = data.drinks[0].strDrink;
+        h4Ins.innerText = data.drinks[0].strInstructions;
+                
+        for(let i=1; i<16; i++){
+            if(data.drinks[0][`strIngredient${i}`] == null){
+                break;
+            }
+            let li = document.createElement('li');
+            li.innerHTML = data.drinks[0][`strIngredient${i}`] + ': ' + data.drinks[0][`strMeasure${i}`]
+            ul.appendChild(li);
+        }
+        mainDiv().append(cardDiv);
+        cardDiv.appendChild(h3);
+        cardDiv.appendChild(img);
+        cardDiv.appendChild(h4);
+        h4.appendChild(ul);
+        cardDiv.appendChild(h4Ins);
+    })
+        .catch(error => alert('Result not found, try another name!'))
+}
+               
+
 /** Helper **/
+
 function resetMainDiv(){
     mainDiv().innerHTML= ""
 //reset the page to prevent adding on
