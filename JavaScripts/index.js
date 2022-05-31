@@ -127,15 +127,15 @@ function renderSurpriseMe(cocktail){
     const h1 = document.createElement('h1');
     const div = document.createElement('div');
     const image = document.createElement('img'); 
-    const h2 = document.createElement('h2');
+    const h3 = document.createElement('h3');
     const ul = document.createElement('ul');
-    const p = document.createElement('p');
+    const h4 = document.createElement('h4');
     
     h1.innerText = 'SURPRISE!!';
     image.src = cocktail.drinks[0].strDrinkThumb;
-    h2.innerText = cocktail.drinks[0].strDrink;
+    h3.innerText = cocktail.drinks[0].strDrink;
     ul.className = 'card';
-    p.className = 'card';
+    h4.className = 'card';
     
     for(let i=1; i<16; i++){
         //iterate through each ingredients and measurements
@@ -147,13 +147,11 @@ function renderSurpriseMe(cocktail){
         ul.appendChild(li);
     }
 
-    p.innerText = cocktail.drinks[0].strInstructions
+    h4.innerText = cocktail.drinks[0].strInstructions
 
-    mainDiv().appendChild(h1);
-    h1.appendChild(div);
-    div.append(image, h2);
-    h2.appendChild(ul);
-    div.append(p)    
+    mainDiv().append(h1, div);
+    div.append(image, h3, h4);
+    h3.append(ul);  
 }
 
 function fetchSurpriseMe(){
