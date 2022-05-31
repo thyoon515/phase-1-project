@@ -4,7 +4,6 @@
 const mainDiv = () => document.getElementById('main');
 const homeLink = () => document.getElementById('home-link');
 const searchByNameLink = () => document.getElementById('search-by-name-link');
-const searchByIngredientLink = () => document.getElementById('search-by-ingredient-link');
 const surpriseMeLink = () => document.getElementById('surprise-me-link');
 
 /** Event Listeners **/
@@ -14,9 +13,6 @@ function homePageLinkEvent(){
 }
 function searchByNameLinkEvent(){
     searchByNameLink().addEventListener('click', renderSearchByName)
-}
-function searchByIngredientLinkEvent(){
-    searchByIngredientLink().addEventListener('click', renderSearchByIngredient)
 }
 function surpriseMeLinkEvent(){
     surpriseMeLink().addEventListener('click', fetchSurpriseMe)
@@ -92,36 +88,6 @@ function renderSearchByName(){
     div2.appendChild(btn);
 }
 
-function renderSearchByIngredient(){
-    resetMainDiv();
-    const h1 = document.createElement('h1');
-    const form = document.createElement('form');
-    const div1 = document.createElement('div');
-    const div2 = document.createElement('div');
-    const input = document.createElement('input');
-    const label = document.createElement('label');
-    const btn = document.createElement('button');
-    h1.className = 'center-align';
-    form.className = 'col s12';
-    div1.className = 'row container';
-    div2.className = 'input-field col s6';
-    input.className = 'validate';
-    btn.className = 'waves-effect waves-light btn'
-    input.id = "cocktail-ingredients";
-    input.setAttribute('type', 'text');
-    label.setAttribute('for', 'Cocktail_ingredients');
-    h1.innerText = 'Search Cocktail Recipe by Ingredients'
-    label.innerText = 'Ingredient';
-    btn.innerText = 'search';
-    mainDiv().appendChild(h1);
-    mainDiv().appendChild(form)
-    form.appendChild(div1);
-    div1.appendChild(div2);
-    div2.appendChild(input);
-    div2.appendChild(label);
-    div2.appendChild(btn);
-}
-
 function renderSurpriseMe(cocktail){
     resetMainDiv();
     const h1 = document.createElement('h1');
@@ -173,6 +139,5 @@ document.addEventListener('DOMContentLoaded', () => {
     renderHomePage();
     homePageLinkEvent();
     searchByNameLinkEvent();
-    searchByIngredientLinkEvent();
     surpriseMeLinkEvent();
 })
