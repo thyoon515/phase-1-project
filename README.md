@@ -1,4 +1,6 @@
-# ![](Cocktail_Recipe_Banner.png)
+# ![](Cocktail_Recipe_Banner.png) 
+![GitHub top language](https://img.shields.io/github/languages/top/thyoon515/phase-1-project)
+![GitHub last commit](https://img.shields.io/github/last-commit/thyoon515/phase-1-project)
 
 Find your favorite cocktail recipe! 
 If you don't have any favorite and in for a surprise, just click "Surprise Me!"
