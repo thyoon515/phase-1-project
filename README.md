@@ -1,4 +1,4 @@
-# Cocktail Recipe
+# ![](Cocktail_Recipe_Banner.png)
 
 Find your favorite cocktail recipe! 
 If you don't have any favorite and in for a surprise, just click "Surprise Me!"
