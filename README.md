@@ -7,11 +7,13 @@ If you are in for a surprise, just click "Surprise Me!"
 
 ### Description
 
-Cocktail Recipe is a Single Page Application (SPA). It uses public API from thecocktaildb.com to get the recipes. This SPA has 2 main features. First feature is to search the cocktail recipe by typing in the cocktail name. Second feature will present random cocktail recipe by simply clicking on "Surprise Me!" link.
+Cocktail Recipe is a Single Page Application (SPA). It uses public API to get the recipes. This SPA has 2 main features. First feature is to search the cocktail recipe by typing in the cocktail name. Second feature will present random cocktail recipe by simply clicking on "Surprise Me!" link.
 
 ### How to use
 * Fork and clone
 * Open the index.html
+
+![](how_to_use_gif.gif)
 
 
 ### Credit
