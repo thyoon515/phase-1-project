@@ -24,4 +24,4 @@ Cocktail Recipe is a Single Page Application (SPA). It uses public API to get th
 - JavaScript library : [jQuery](https://jquery.com/)
 - Neon Cocktail Bar Image : [Customneon](https://customneon.com/media/catalog/product/cache/1d858328874ebd6a1883e32a918ffc61/c/o/cocktail-glass-turnedon-customneon.jpg)
 - GIF : [Video-to-gif](https://ezgif.com/video-to-gif)
-- GIPHY : ![](giphy_thank_you.gif)
+- GIPHY : ![](thank-you-gif.gif)
