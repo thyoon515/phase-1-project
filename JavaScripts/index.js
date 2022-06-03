@@ -55,7 +55,14 @@ function renderSearchByName(){
     form.setAttribute('method', 'POST');
     h1.innerText = 'Search Cocktail Recipe by Name';
     label.innerText = 'Cocktail Name';
-    btn.innerText = 'search';
+    btn.innerText = 'search'; 
+    
+    form.addEventListener('submit', (e) =>{
+        e.preventDefault();
+        fetchSearchByName(e.target[0].value); //target input field to pass in input value to search the API
+        form.reset();
+    })
+
     mainDiv().appendChild(h1);
     mainDiv().appendChild(form)
     form.appendChild(div1);
@@ -63,13 +70,8 @@ function renderSearchByName(){
     div2.appendChild(input);
     div2.appendChild(label);
     div2.appendChild(btn);
-    
-    form.addEventListener('submit', (e) =>{
-        e.preventDefault();
-        fetchSearchByName(e.target[0].value); //pass in input value to search the API
-        form.reset();
-    })
-}
+}    
+   
 
 function renderSurpriseMe(cocktail){
     resetMainDiv();
