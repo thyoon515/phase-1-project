@@ -86,10 +86,10 @@ function renderSurpriseMe(cocktail){
     h4Recipe.innerText = cocktail.drinks[0].strDrink;
     h4Instruction.innerText = cocktail.drinks[0].strInstructions
     img.src = cocktail.drinks[0].strDrinkThumb;
-    
+
     for(let i=1; i<16; i++){
         //iterate through each ingredients and measurements
-        if(cocktail.drinks[0][`strIngredient${i}`] == null){
+        if(cocktail.drinks[0][`strIngredient${i}`] === null | cocktail.drinks[0][`strIngredient${i}`] === ""){
             break;
         }
         let li = document.createElement('li');
@@ -112,31 +112,34 @@ function fetchSearchByName(cocktail){
         .then(resp => resp.json())
         .then(data => {
         resetMainDiv();
-        const cardDiv = document.createElement('div');
-        const img = document.createElement('img');
-        const h3 = document.createElement('h3');
-        const h4Ins = document.createElement('h4');
-        const h4 = document.createElement('h4');
-        const ul = document.createElement('ul');
-        cardDiv.className = 'card';
-        img.src = data.drinks[0].strDrinkThumb;
-        h3.innerText = data.drinks[0].strDrink;
-        h4Ins.innerText = data.drinks[0].strInstructions;
-                
-        for(let i=1; i<16; i++){
-            if(data.drinks[0][`strIngredient${i}`] == null){
+        const div = document.createElement('div');
+
+        data.drinks.forEach(drink => {
+            const cardDiv = document.createElement('div');
+            const img = document.createElement('img');
+            const h3 = document.createElement('h3');
+            const h4Ins = document.createElement('h4');
+            const h4 = document.createElement('h4');
+            const ul = document.createElement('ul');
+            cardDiv.className = 'card';
+            img.src = drink.strDrinkThumb;
+            h3.innerText = drink.strDrink;
+            h4Ins.innerText = drink.strInstructions;
+
+            for(let i=1; i<16; i++){
+                if(drink[`strIngredient${i}`] === null | drink[`strIngredient${i}`] === ""){
                 break;
+                }
+                let li = document.createElement('li');
+                li.innerHTML = drink[`strIngredient${i}`] + ': ' + drink[`strMeasure${i}`]
+             ul.appendChild(li);
             }
-            let li = document.createElement('li');
-            li.innerHTML = data.drinks[0][`strIngredient${i}`] + ': ' + data.drinks[0][`strMeasure${i}`]
-            ul.appendChild(li);
-        }
-        mainDiv().append(cardDiv);
-        cardDiv.appendChild(h3);
-        cardDiv.appendChild(img);
-        cardDiv.appendChild(h4);
-        h4.appendChild(ul);
-        cardDiv.appendChild(h4Ins);
+
+            h4.appendChild(ul);
+            cardDiv.append(h3, img, h4, h4Ins);
+            div.appendChild(cardDiv);
+        })
+        mainDiv().append(div);
     })
         .catch(error => alert('Result not found, go back to Search By Name and try another name!'))
 }
@@ -156,5 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderHomePage();
     homePageLinkEvent();
     searchByNameLinkEvent();
-    surpriseMeLinkEvent();
+    surpriseMeLinkEvent();   
 })
+
+
